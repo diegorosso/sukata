@@ -8,6 +8,7 @@ import Instructors from "./components/Instructors.vue";
 import Gallery from "./components/Gallery.vue";
 import Contact from "./components/Contact.vue";
 import Footer from "./components/Footer.vue";
+import Assistant from "./components/Assistant.vue";
 </script>
 
 <template>
@@ -39,6 +40,8 @@ import Footer from "./components/Footer.vue";
       </section>
     </main>
      <Footer />
+
+     <Assistant />
   </div>
 </template>
 
