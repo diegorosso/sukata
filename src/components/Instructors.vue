@@ -36,9 +36,9 @@ const instructors: Instructor[] = [
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div
-      class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
+      class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-8"
     >
-      <div>
+      <div class="text-center md:text-left">
         <h2 class="text-red-600 font-black tracking-widest uppercase mb-2">
           Nuestro Equipo
         </h2>
@@ -48,7 +48,7 @@ const instructors: Instructor[] = [
           Liderazgo <span class="text-zinc-700">Élite</span>
         </h3>
       </div>
-      <p class="max-w-md text-zinc-500 text-right italic font-medium">
+      <p class="max-w-md text-zinc-500 text-center md:text-right italic font-medium">
         Entrena con campeones internacionales y maestros dedicados a transmitir
         la técnica más pura del Jiu Jitsu Brasileño.
       </p>
