@@ -45,4 +45,8 @@ import Assistant from "./components/Assistant.vue";
   </div>
 </template>
 
-<style scoped></style>
+<style >
+html {
+  scroll-behavior: smooth;
+}
+</style>
