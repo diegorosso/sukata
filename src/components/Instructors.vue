@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import adriImage from '@/assets/adri.jpg'; // Comentar esta línea
+import adriImage from '../assets/imagenes/adri.jpg';
 
 interface Instructor {
   name: string;
@@ -13,8 +13,8 @@ const instructors: Instructor[] = [
     name: "Adrián Cabrera",
     rank: "Cinturón Negro 4to Grado",
     exp: "20 años de experiencia",
-    image: "https://images.unsplash.com/photo-1552072805-2a9039d00e57?auto=format&fit=crop&q=80&w=800",
-  
+    image: adriImage,
+   
   },
   {
     name: "Elena Rodríguez",

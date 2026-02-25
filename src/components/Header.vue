@@ -49,7 +49,7 @@ onUnmounted(() => {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-2">
-          <img src="/src/assets/logo.png" alt="Team Cabrera Logo" class="w-8 h-8 object-contain">
+          <img src="/src/assets/imagenes/logo.png" alt="Team Cabrera Logo" class="w-8 h-8 object-contain">
           <span class="text-xl font-black tracking-tighter uppercase italic">
             TEAM <span class="text-red-600">CABRERA</span>
           </span>

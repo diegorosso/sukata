@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Sword, ShieldCheck, Zap, Heart } from 'lucide-vue-next';
-import img from '../assets/tatami.jpg'
+import img from '../assets/imagenes/tatami.jpg'
 
 const pillars = [
   { 
