@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, nextTick } from 'vue';
 import { MessageSquare, X, Send, Bot } from 'lucide-vue-next';
-import { GoogleGenAI } from '@google/genai';
 
 interface Message {
   role: 'user' | 'bot';
@@ -10,37 +9,69 @@ interface Message {
 
 const isOpen = ref(false);
 const messages = ref<Message[]>([
-  { role: 'bot', text: '¡Hola! Soy tu asistente de Sukata Bjj. ¿Tienes dudas sobre clases, precios o técnica? Oss.' }
+  { role: 'bot', text: '¡Hola! Soy tu asistente de Sukata BJJ. ¿Tenés dudas sobre clases, horarios o técnica? ¡Oss!' }
 ]);
 const input = ref('');
 const isLoading = ref(false);
+const messagesContainer = ref<HTMLElement | null>(null);
+
+const scrollToBottom = () => {
+  nextTick(() => {
+    if (messagesContainer.value) {
+      messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
+    }
+  });
+};
+
+const SYSTEM_PROMPT = `Sos el asistente virtual de Sukata BJJ, academia de Jiu Jitsu Brasileño en Hipólito Yrigoyen 1980, Martínez, Buenos Aires.
+Respondé de forma motivadora, amigable y concisa (máximo 3 oraciones).
+Usá términos de BJJ cuando sea apropiado.
+Clases disponibles: Kimono, No-Gi, Femenino y Pro.
+Instructor principal: Adrián Cabrera, Cinturón Negro 4to Grado, 20 años de experiencia.
+Instagram: @sukatamartinez | WhatsApp: +54 9 11 5614-2680.
+Terminá con "¡Oss!" cuando sea apropiado.`;
 
 const handleSend = async () => {
   if (!input.value.trim() || isLoading.value) return;
 
-  const userMsg = input.value;
+  const userMsg = input.value.trim();
   messages.value.push({ role: 'user', text: userMsg });
   input.value = '';
   isLoading.value = true;
+  scrollToBottom();
 
   try {
-    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
-      contents: `Eres el asistente virtual de una academia de Jiu Jitsu Brasileño llamada "Sukata Bjj". Responde de forma motivadora, profesional y concisa. Usa términos de BJJ si es necesario. Pregunta: ${userMsg}`,
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'llama-3.1-8b-instant',
+        max_tokens: 200,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: userMsg },
+        ],
+      }),
     });
 
-    const botText = response.text || 'Perdona, he tenido un problema técnico. ¡Oss!';
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+    const botText = data.choices?.[0]?.message?.content ?? '¡Perdón, tuve un problema técnico! ¡Oss!';
     messages.value.push({ role: 'bot', text: botText });
   } catch (error) {
-    messages.value.push({ role: 'bot', text: 'Hubo un error contactando con el tatami virtual. Inténtalo de nuevo.' });
+    messages.value.push({ role: 'bot', text: 'Hubo un error en el tatami virtual. ¡Intentalo de nuevo! ¡Oss!' });
   } finally {
     isLoading.value = false;
+    scrollToBottom();
   }
 };
 
 const handleKeyDown = (e: KeyboardEvent) => {
-  if (e.key === 'Enter') handleSend();
+  if (e.key === 'Enter' && !e.shiftKey) handleSend();
 };
 </script>
 
@@ -68,15 +99,18 @@ const handleKeyDown = (e: KeyboardEvent) => {
           <div class="p-2 bg-red-600 rounded-lg">
             <Bot class="w-5 h-5 text-white" />
           </div>
-          <span class="font-black uppercase italic tracking-widest text-sm">Asistente Sukata</span>
+          <div>
+            <span class="font-black uppercase italic tracking-widest text-sm block">Asistente Sukata</span>
+            <span class="text-[10px] text-green-500 font-bold uppercase tracking-widest">● En línea</span>
+          </div>
         </div>
-        <button @click="isOpen = false" class="text-zinc-500 hover:text-white">
+        <button @click="isOpen = false" class="text-zinc-500 hover:text-white transition-colors">
           <X />
         </button>
       </div>
 
       <!-- Messages -->
-      <div class="flex-1 overflow-y-auto p-4 space-y-4">
+      <div ref="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
         <div
           v-for="(m, i) in messages"
           :key="i"
@@ -84,7 +118,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
         >
           <div
             :class="[
-              'max-w-[80%] p-3 rounded-lg text-sm',
+              'max-w-[80%] p-3 rounded-lg text-sm leading-relaxed',
               m.role === 'user'
                 ? 'bg-red-700 text-white rounded-br-none'
                 : 'bg-zinc-900 text-zinc-300 border border-zinc-800 rounded-bl-none'
@@ -95,8 +129,10 @@ const handleKeyDown = (e: KeyboardEvent) => {
         </div>
 
         <div v-if="isLoading" class="flex justify-start">
-          <div class="bg-zinc-900 text-zinc-500 p-3 rounded-lg text-xs animate-pulse">
-            Pensando técnica...
+          <div class="bg-zinc-900 border border-zinc-800 p-3 rounded-lg rounded-bl-none flex gap-1 items-center">
+            <span class="w-2 h-2 bg-red-600 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+            <span class="w-2 h-2 bg-red-600 rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+            <span class="w-2 h-2 bg-red-600 rounded-full animate-bounce" style="animation-delay: 300ms"></span>
           </div>
         </div>
       </div>
@@ -108,12 +144,14 @@ const handleKeyDown = (e: KeyboardEvent) => {
             type="text"
             v-model="input"
             @keydown="handleKeyDown"
+            :disabled="isLoading"
             placeholder="Escribe tu duda..."
-            class="w-full bg-black border border-zinc-800 p-3 pr-12 rounded-lg text-sm text-white focus:outline-none focus:border-red-600"
+            class="w-full bg-black border border-zinc-800 p-3 pr-12 rounded-lg text-sm text-white focus:outline-none focus:border-red-600 disabled:opacity-50 transition-colors"
           />
           <button
             @click="handleSend"
-            class="absolute right-2 top-1/2 -translate-y-1/2 text-red-600 hover:text-red-500"
+            :disabled="isLoading || !input.trim()"
+            class="absolute right-2 top-1/2 -translate-y-1/2 text-red-600 hover:text-red-500 disabled:opacity-30 transition-colors"
           >
             <Send class="w-5 h-5" />
           </button>

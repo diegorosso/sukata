@@ -82,13 +82,16 @@ onMounted(() => {
 
         <!-- Info de contacto con stagger -->
         <div class="space-y-8">
-          <div
+          <a
             v-for="(item, idx) in [
-              { icon: MapPin, title: 'Ubicación', text: 'Hipólito Yrigoyen 1980, Martínez, Buenos Aires' },
-              { icon: Phone,  title: 'Teléfono',  text: '+1 234 567 890' },
-              { icon: Mail,   title: 'Email',     text: 'info@sukata.com' },
+              { icon: MapPin, title: 'Ubicación', text: 'Hipólito Yrigoyen 1980, Martínez, Buenos Aires', href: 'https://www.google.com/maps/search/?api=1&query=Hipólito+Yrigoyen+1980+B1640ADF+Martínez', target: '_blank' },
+              { icon: Phone,  title: 'Teléfono',  text: '+54 9 11 5614-2680', href: 'https://wa.me/5491156142680', target: '_blank' },
+              { icon: Mail,   title: 'Email',     text: 'info@sukata.com', href: 'mailto:info@sukata.com', target: '_self' },
             ]"
             :key="idx"
+            :href="item.href"
+            :target="item.target"
+            rel="noopener noreferrer"
             class="flex items-center gap-6 group transition-all duration-600 ease-out"
             :class="infoVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'"
             :style="{ transitionDelay: infoVisible ? `${idx * 120}ms` : '0ms' }"
@@ -100,7 +103,7 @@ onMounted(() => {
               <h4 class="font-black uppercase italic tracking-widest group-hover:text-red-500 transition-colors duration-300">{{ item.title }}</h4>
               <p class="text-zinc-500 group-hover:text-zinc-400 transition-colors duration-300">{{ item.text }}</p>
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- Redes sociales -->
@@ -110,13 +113,17 @@ onMounted(() => {
           style="transition-delay: 400ms;"
         >
           <a
-            href="#"
+            href="https://www.instagram.com/sukatamartinez/"
+            target="_blank"
+            rel="noopener noreferrer"
             class="p-4 bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-red-600 hover:border-red-600 hover:scale-110 hover:-translate-y-1 transition-all duration-300"
           >
             <Instagram class="w-6 h-6" />
           </a>
           <a
-            href="#"
+            href="https://www.facebook.com/sukatamartinezbjj"
+            target="_blank"
+            rel="noopener noreferrer"
             class="p-4 bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-red-600 hover:border-red-600 hover:scale-110 hover:-translate-y-1 transition-all duration-300"
           >
             <Facebook class="w-6 h-6" />
