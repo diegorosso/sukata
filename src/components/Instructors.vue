@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import adriImage from '../assets/imagenes/adri.jpg';
+import demi from '../assets/imagenes/demi.png';
+import demi2 from '../assets/imagenes/demi2.png';
 
 interface Instructor {
   name: string;
@@ -20,15 +22,13 @@ const instructors: Instructor[] = [
     name: "Elena Rodríguez",
     rank: "Cinturón Negro",
     exp: "12 años de experiencia",
-    image:
-      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800",
+    image: demi
   },
   {
     name: "Marcus Henderson",
     rank: "Cinturón Negro 1er Grado",
     exp: "18 años de experiencia",
-    image:
-      "https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&q=80&w=800",
+    image: demi2,
   },
 ];
 </script>

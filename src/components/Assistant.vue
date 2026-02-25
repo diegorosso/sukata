@@ -27,7 +27,7 @@ const handleSend = async () => {
     const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-2.0-flash',
-      contents: `Eres el asistente virtual de una academia de Jiu Jitsu Brasileño llamada "BJJ Élite". Responde de forma motivadora, profesional y concisa. Usa términos de BJJ si es necesario. Pregunta: ${userMsg}`,
+      contents: `Eres el asistente virtual de una academia de Jiu Jitsu Brasileño llamada "Sukata Bjj". Responde de forma motivadora, profesional y concisa. Usa términos de BJJ si es necesario. Pregunta: ${userMsg}`,
     });
 
     const botText = response.text || 'Perdona, he tenido un problema técnico. ¡Oss!';
@@ -68,7 +68,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
           <div class="p-2 bg-red-600 rounded-lg">
             <Bot class="w-5 h-5 text-white" />
           </div>
-          <span class="font-black uppercase italic tracking-widest text-sm">Asistente Élite</span>
+          <span class="font-black uppercase italic tracking-widest text-sm">Asistente Sukata</span>
         </div>
         <button @click="isOpen = false" class="text-zinc-500 hover:text-white">
           <X />
