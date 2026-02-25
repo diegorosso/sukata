@@ -1,17 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import galeria1 from '../assets/imagenes/galeria1.png';
+import galeria2 from '../assets/imagenes/galeria2.png';
+import galeria3 from '../assets/imagenes/galeria3.png';
+import galeria4 from '../assets/imagenes/galeria4.png';
+import galeria5 from '../assets/imagenes/galeria5.png';
+import galeria6 from '../assets/imagenes/galeria6.png';
+import galeria7 from '../assets/imagenes/galeria7.png';
+import galeria8 from '../assets/imagenes/galeria8.png';
+import galeria9 from  '../assets/imagenes/galeria9 .png'
+
 
 // Define tus imágenes aquí o impórtalas desde un archivo constants
 const GALLERY_IMAGES = ref([
-  'https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1552072805-2a9039d00e57?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1517438476312-10d79c077509?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1583473203834-8d69e0b90139?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=800',
+  galeria1,
+  galeria2,
+  galeria3,
+  galeria4,
+  galeria5,
+  galeria6,
+  galeria7,
+  galeria8,
+  galeria9,
 ]);
 </script>
 
