@@ -75,7 +75,7 @@ const setVideo = (index: number) => {
 
         <!-- Título principal: entra desde abajo con escala -->
         <h1
-          class="text-5xl md:text-8xl lg:text-9xl font-black italic tracking-tighter uppercase leading-none transition-all duration-1000 ease-out"
+          class="text-7xl md:text-8xl lg:text-9xl font-black italic tracking-tighter uppercase leading-none transition-all duration-1000 ease-out"
           :class="mounted ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'"
           style="transition-delay: 350ms;"
         >
@@ -104,7 +104,7 @@ const setVideo = (index: number) => {
 
         <!-- Descripción -->
         <p
-          class="text-zinc-400 text-lg md:text-2xl max-w-2xl mx-auto font-medium transition-all duration-700 ease-out"
+          class="px-6 text-zinc-400 text-base md:text-2xl max-w-2xl mx-auto font-medium transition-all duration-700 ease-out"
           :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
           style="transition-delay: 600ms;"
         >
@@ -115,7 +115,7 @@ const setVideo = (index: number) => {
         <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
           <a
             href="#contact"
-            class="bg-red-700 hover:bg-red-600 text-white text-xl px-12 py-5 rounded-sm font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(185,28,28,0.3)] hover:shadow-[0_0_50px_rgba(185,28,28,0.5)]"
+            class="bg-red-700 w-[260px] hover:bg-red-600 text-white text-xl px-12 py-5 rounded-sm  w-fit mx-auto md:mx-0 font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(185,28,28,0.3)] hover:shadow-[0_0_50px_rgba(185,28,28,0.5)]"
             :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
             style="transition: opacity 600ms ease-out, transform 600ms ease-out, background-color 300ms, box-shadow 300ms, scale 300ms; transition-delay: 800ms;"
           >
@@ -123,7 +123,7 @@ const setVideo = (index: number) => {
           </a>
           <a
             href="#about"
-            class="border border-white/20 hover:border-white/50 bg-white/5 backdrop-blur-md text-white text-xl px-12 py-5 rounded-sm font-black uppercase tracking-widest transition-all duration-300 hover:bg-white/10"
+            class="border w-[260px] mx-auto md:mx-0 border-white/20 hover:border-white/50 bg-white/5 backdrop-blur-md text-white text-l px-12 py-5 rounded-sm font-black uppercase tracking-widest transition-all duration-300 hover:bg-white/10"
             :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
             style="transition: opacity 600ms ease-out, transform 600ms ease-out, border-color 300ms, background-color 300ms; transition-delay: 950ms;"
           >
