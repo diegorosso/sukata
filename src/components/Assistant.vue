@@ -23,14 +23,6 @@ const scrollToBottom = () => {
   });
 };
 
-const SYSTEM_PROMPT = `Sos el asistente virtual de Sukata BJJ, academia de Jiu Jitsu Brasileño en Hipólito Yrigoyen 1980, Martínez, Buenos Aires.
-Respondé de forma motivadora, amigable y concisa (máximo 3 oraciones).
-Usá términos de BJJ cuando sea apropiado.
-Clases disponibles: Kimono, No-Gi, Femenino y Pro.
-Instructor principal: Adrián Cabrera, Cinturón Negro 4to Grado, 20 años de experiencia.
-Instagram: @sukatamartinez | WhatsApp: +54 9 11 5614-2680.
-Terminá con "¡Oss!" cuando sea apropiado.`;
-
 const handleSend = async () => {
   if (!input.value.trim() || isLoading.value) return;
 
@@ -41,26 +33,17 @@ const handleSend = async () => {
   scrollToBottom();
 
   try {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    // Siempre usa el proxy — funciona en local y en producción
+    const response = await fetch('/.netlify/functions/chat', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
-        max_tokens: 200,
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: userMsg },
-        ],
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMsg }),
     });
 
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const data = await response.json();
-    const botText = data.choices?.[0]?.message?.content ?? '¡Perdón, tuve un problema técnico! ¡Oss!';
+    const botText = data.text ?? '¡Perdón, tuve un problema técnico! ¡Oss!';
     messages.value.push({ role: 'bot', text: botText });
   } catch (error) {
     messages.value.push({ role: 'bot', text: 'Hubo un error en el tatami virtual. ¡Intentalo de nuevo! ¡Oss!' });
