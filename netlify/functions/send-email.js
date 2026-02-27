@@ -18,7 +18,7 @@ export const handler = async (event) => {
 
     const resendBody = {
       from: 'Sukata BJJ <onboarding@resend.dev>',
-      to: ['diegorasso1988@gmail.com'],   // ← tu mail registrado en Resend
+      to: ['diegorosso1988@gmail.com'],   // ← tu mail registrado en Resend
       reply_to: email,
       subject: `Nuevo mensaje de ${name} — Sukata BJJ`,
       html: `
