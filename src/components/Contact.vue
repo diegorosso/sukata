@@ -17,17 +17,29 @@ const formState = ref<FormState>({
 const status = ref('');
 const isSubmitting = ref(false);
 
-const handleSubmit = (e: Event) => {
+const handleSubmit = async (e: Event) => {
   e.preventDefault();
   isSubmitting.value = true;
   status.value = 'Enviando...';
 
-  setTimeout(() => {
+  try {
+    const response = await fetch('/.netlify/functions/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formState.value),
+    });
+
+    if (!response.ok) throw new Error('Error en el servidor');
+
     status.value = '¡Mensaje enviado con éxito! Oss.';
     formState.value = { name: '', email: '', message: '' };
+    setTimeout(() => { status.value = ''; }, 4000);
+  } catch (error) {
+    status.value = 'Error al enviar. Intentá de nuevo.';
+    setTimeout(() => { status.value = ''; }, 4000);
+  } finally {
     isSubmitting.value = false;
-    setTimeout(() => { status.value = ''; }, 3000);
-  }, 1500);
+  }
 };
 
 // Animaciones
